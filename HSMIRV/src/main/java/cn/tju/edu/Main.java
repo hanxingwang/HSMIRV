@@ -146,7 +146,7 @@ public class Main {
 			main.setTBox(TBox);
 			
 			try {
-				System.err.println("The result is :" + main.HSMIRV());
+				System.out.println("The result is :" + main.HSMIRV());
 			} catch (OWLOntologyCreationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
