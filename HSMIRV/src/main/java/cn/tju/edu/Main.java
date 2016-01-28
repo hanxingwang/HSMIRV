@@ -75,6 +75,93 @@ public class Main {
 		this.setBFunction(d);
 		this.setFFunction(f);
 	}
+	
+	public static void main(String[] args) {
+		if(args.length != 1) {
+			System.err.println("The argument number is wrong.");
+			return;
+		}
+		
+		File TBox = new File(args[0]);
+		
+		System.out.flush();
+		System.err.flush();
+		
+		for(int i=0; i<6; i++) {
+			System.out.println("The ontology is : " + TBox.getName());
+			
+			dFunction d = null;
+			fFunction f = null;
+			
+			switch (i) {
+			case 0:
+				d = new DD();
+				System.out.println("The distance function is Hamming distance.");
+				f = new KF();
+				System.out.println("The arrgegation function is k-voting function.");
+				break;
+			
+			case 1:
+				d = new DD();
+				System.out.println("The distance function is Hamming distance.");
+				f = new MF();
+				System.out.println("The arrgegation function is maximum function.");
+				break;
+				
+			case 2:
+				d = new DD();
+				System.out.println("The distance function is Hamming distance.");
+				f = new SF();
+				System.out.println("The arrgegation function is summation function.");
+				break;
+				
+			case 3:
+				d = new DH();
+				System.out.println("The distance function is Drastic distance.");
+				f = new KF();
+				System.out.println("The arrgegation function is k-voting function.");
+				break;
+			
+			case 4:
+				d = new DH();
+				System.out.println("The distance function is Drastic distance.");
+				f = new MF();
+				System.out.println("The arrgegation function is maximum function.");
+				break;
+				
+			case 5:
+				d = new DH();
+				System.out.println("The distance function is Drastic distance.");
+				f = new SF();
+				System.out.println("The arrgegation function is summation function.");
+				break;
+
+			default:
+				System.err.println("There are something wrong in the d and f function.");
+				break;
+			}
+			
+			Main main = new Main(TBox, d, f);
+			
+			main.setTBox(TBox);
+			
+			try {
+				System.err.println("The result is :" + main.HSMIRV());
+			} catch (OWLOntologyCreationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			System.out.flush();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.err.flush();
+		}
+	}
 
 	public CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>> HSMIRV() throws OWLOntologyCreationException {
 		Set<OWLEntity> signature = null;
@@ -83,6 +170,7 @@ public class Main {
 		OntologyManager manager = new OntologyManager();
 		OWLOntology ontology = manager.loadOntology(this.getTBox().getAbsolutePath());
 
+		long beginTime = System.currentTimeMillis();
 		TBox = manager.getTBox(ontology);
 		signature = manager.getTBoxSignature(ontology);
 
@@ -157,6 +245,8 @@ public class Main {
 
 			first = false;
 		}
+		
+		System.out.println("The total time is : " + (System.currentTimeMillis()-beginTime));
 
 		return hsmirv;
 	}

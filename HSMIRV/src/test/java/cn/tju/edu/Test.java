@@ -15,15 +15,15 @@ public class Test {
 	@org.junit.Test
 	public void testLoadOntology() {
 		File TBox = new File("src/main/resources/Ontology/simpleOnto2.owl");
-		dFunction bh = new DD();
-		fFunction sf = new SF();
+		dFunction bh = new DH();
+		fFunction sf = new MF();
 		
 		Main main = new Main(TBox, bh, sf);
 		
 		main.setTBox(TBox);
 		
 		try {
-			main.HSMIRV();
+			System.err.println(main.HSMIRV());
 		} catch (OWLOntologyCreationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -30,9 +30,9 @@ public class KF implements fFunction {
 			return 0;
 		
 		if((zeroLength > k*length && zeroLength < length) || zeroLength == k*length)
-			return -1;
-		else 
 			return 1;
+		else 
+			return 2;
 	}
 
 	public float getK() {
@@ -41,6 +41,10 @@ public class KF implements fFunction {
 
 	public void setK(float k) {
 		this.k = k;
+	}
+	
+	public KF() {
+		k = 0.5f;
 	}
 
 }
