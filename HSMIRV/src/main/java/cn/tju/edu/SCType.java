@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
+
 public class SCType {
 	private List<CType> scTypes;
 	

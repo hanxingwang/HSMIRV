@@ -35,6 +35,12 @@ import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectUnionOfImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLSubClassOfAxiomImpl;
 
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
 public class Main {
 	private File T;
 	private dFunction d;
@@ -70,7 +76,7 @@ public class Main {
 		this.setFFunction(f);
 	}
 
-	public CType HSMIRV() throws OWLOntologyCreationException {
+	public CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>> HSMIRV() throws OWLOntologyCreationException {
 		Set<OWLEntity> signature = null;
 		Set<OWLAxiom> TBox = null;
 
@@ -106,13 +112,13 @@ public class Main {
 		}
 
 		boolean first = true;
-		ArrayList<ArrayList<ArrayList<OWLEntity>>> hsmirv = new ArrayList<ArrayList<ArrayList<OWLEntity>>>();
+		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>> hsmirv = new CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>>();
 		int i = 0;
 		for (OWLAxiom axiom : TBox) {
 			CType cType = scType.get(i);
 			i++;
 
-			ArrayList<ArrayList<OWLEntity>> h = new ArrayList<ArrayList<OWLEntity>>();
+			ArrayList<ArrayList<OWLEntity>> ht = new ArrayList<ArrayList<OWLEntity>>();
 
 			if (!cType.containsAll(model)) {
 				ArrayList<Tree> treeNodes = new ArrayList<Tree>();
@@ -124,14 +130,56 @@ public class Main {
 						omega.remove(entities);
 					}
 
-					count ++;
+					count++;
 				}
+
+				HittingSet hittingSet = new HittingSet();
+				ht = hittingSet.getHittingSet(omega);
+			} else {
+				OWLClassImpl thing = (OWLClassImpl) OWLManager.getOWLDataFactory().getOWLThing();
+				ArrayList<OWLEntity> list = new ArrayList<OWLEntity>();
+				list.add(thing);
+				ht.add(list);
+			}
+
+			if (first) {
+				CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>> firstHt = new CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>();
+				for (ArrayList<OWLEntity> entities : ht) {
+					CopyOnWriteArrayList<OWLEntity> copyEntities = new CopyOnWriteArrayList<OWLEntity>();
+					copyEntities.addAll(entities);
+					firstHt.add(copyEntities);
+				}
+				
+				hsmirv.add(firstHt);
+			} else {
+				hsmirv = cartesianProduct(hsmirv, ht);
 			}
 
 			first = false;
 		}
 
-		return model;
+		return hsmirv;
+	}
+
+	public CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>> cartesianProduct(CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>> hsmirv,
+			ArrayList<ArrayList<OWLEntity>> ht) {
+		CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>> newHsmirv = new CopyOnWriteArrayList<CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>>();
+		for(CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>> sec : hsmirv) {
+			for(CopyOnWriteArrayList<OWLEntity> third : sec) {
+				for(ArrayList<OWLEntity> htFir : ht) {
+					CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>> anotherSecond = new CopyOnWriteArrayList<CopyOnWriteArrayList<OWLEntity>>();
+					for(OWLEntity entity : htFir) {
+						CopyOnWriteArrayList<OWLEntity> anotherThird = new CopyOnWriteArrayList<OWLEntity>();
+						anotherThird.addAll(third);
+						anotherThird.add(entity);
+						anotherSecond.add(anotherThird);
+					}
+					newHsmirv.add(anotherSecond);
+				}
+			}
+		}
+		
+		return newHsmirv;
 	}
 
 	private CType modelType(CType cTypeSource, SCType scType) {
@@ -194,9 +242,13 @@ public class Main {
 		Set<OWLClassExpression> type = new HashSet<OWLClassExpression>();
 
 		OWLClassImpl thing = (OWLClassImpl) OWLManager.createOWLOntologyManager().getOWLDataFactory().getOWLThing();
+		OWLClassImpl nothing = (OWLClassImpl) OWLManager.createOWLOntologyManager().getOWLDataFactory().getOWLNothing();
 
 		for (OWLEntity entity : signature) {
 			if (thing.equals(entity))
+				continue;
+
+			if (nothing.equals(entity))
 				continue;
 
 			if (entity instanceof OWLClassImpl) {

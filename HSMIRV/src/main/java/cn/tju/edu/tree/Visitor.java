@@ -4,6 +4,13 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
+
 public class Visitor implements Tree {
 	private Set<OWLClassExpression> classes;
 

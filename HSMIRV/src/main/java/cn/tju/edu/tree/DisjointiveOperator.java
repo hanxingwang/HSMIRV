@@ -1,5 +1,12 @@
 package cn.tju.edu.tree;
 
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
+
 public class DisjointiveOperator extends BinaryOperator{
 	public boolean equals(Object object) {
 		if(object instanceof DisjointiveOperator) {

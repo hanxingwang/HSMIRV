@@ -9,6 +9,13 @@ import uk.ac.manchester.cs.owl.owlapi.OWLObjectAllValuesFromImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectComplementOfImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
 
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
+
 public class Leave implements Tree{
 	Tree parent;
 	OWLClassExpression args;

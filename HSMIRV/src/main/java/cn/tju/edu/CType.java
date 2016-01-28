@@ -9,6 +9,13 @@ import uk.ac.manchester.cs.owl.owlapi.OWLObjectInverseOfImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
 
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
+
 public class CType {
 	private Set<Type> cTypes;
 

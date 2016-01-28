@@ -1,5 +1,11 @@
 package cn.tju.edu.tree;
 
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
 
 public class ConjunctiveOperator extends BinaryOperator {
 

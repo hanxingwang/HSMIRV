@@ -4,6 +4,14 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
+
+/*
+ * author Xingwanghan, School of Computer Science and Technology, Tianjin University
+ * All right reserved
+ * Created on 2016.01
+ * 
+ */
+
 public class DH implements dFunction {
 
 //	public int getDistance(Set<OWLClassExpression> t1, Set<OWLClassExpression> t2) {
