@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 public class Test {	
 	@org.junit.Test
 	public void testLoadOntology() {
-		File TBox = new File("src/main/resources/Ontology/simpleOnto2.owl");
+		File TBox = new File("src/main/resources/Ontology/BadFood.owl");
 		dFunction bh = new DH();
 		fFunction sf = new MF();
 		

@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+import com.google.inject.spi.StaticInjectionRequest;
+
 import cn.tju.edu.tree.BinaryOperator;
 import cn.tju.edu.tree.ConjunctiveOperator;
 import cn.tju.edu.tree.DisjointiveOperator;
@@ -697,6 +699,7 @@ public class Main {
 		Tree empty = new BinaryOperator();
 
 		if (root instanceof DisjointiveOperator) {
+			System.err.println(root);
 			visitDNF(((DisjointiveOperator) root).getLeftChild());
 			visitDNF(((DisjointiveOperator) root).getRightChild());
 
